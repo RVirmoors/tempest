@@ -1,5 +1,5 @@
-// Max 8 JS script: 6 sinks, 6 bodies, polar output
-// Outputs list of 12 values: (angle°, distance) for each body
+// 6 sinks, 6 bodies, polar output
+// Outputs xyz for each body
 
 inlets = 1;
 outlets = 1;
@@ -27,11 +27,11 @@ function init_sinks() {
 
 function init_bodies() {
     for (var i = 0; i < N; i++) {
-        var r = Math.random() * boundaryRadius * 0.8;
-        var theta = Math.random() * 2 * Math.PI;
+        var r = 1.0;
+        var theta = i * 60 + 30;
         bodyX[i] = r * Math.cos(theta);
         bodyY[i] = r * Math.sin(theta);
-        sinkStrengths[i] = 0.5;
+        sinkStrengths[i] = 0.05;
         bodyRepels[i] = 0.1;
     }
 }
@@ -41,11 +41,20 @@ init_bodies();
 
 // Called when receiving a bang
 function bang() {
-    update(0.05);
+    update(0.005);
 }
 
 function set_sink(idx, val) {
     if (idx >= 0 && idx < N) sinkStrengths[idx] = val;
+}
+
+function set_sinks() {
+    var a = arrayfromargs(arguments);
+    for (var i = 0; i < N; i++) {
+        if (i < a.length) {
+            sinkStrengths[i] = a[i];
+        }
+    }
 }
 
 function set_repel(idx, val) {
@@ -59,6 +68,8 @@ function reset_bodies() {
 function update(dt) {
     var fx = new Array(N);
     var fy = new Array(N);
+    var softening = 0.01;   // prevents infinite force
+    var maxForce  = 8.0;    // cap per interaction
 
     for (var i = 0; i < N; i++) {
         fx[i] = 0;
@@ -70,9 +81,10 @@ function update(dt) {
         for (var j = 0; j < N; j++) {
             var dx = sinkX[j] - bodyX[i];
             var dy = sinkY[j] - bodyY[i];
-            var distSq = dx * dx + dy * dy + 1e-6;
+            var distSq = dx * dx + dy * dy + softening;
             var dist = Math.sqrt(distSq);
             var f = sinkStrengths[j] / distSq;
+            if (f > maxForce) f = maxForce;
             fx[i] += f * (dx / dist);
             fy[i] += f * (dy / dist);
         }
@@ -84,9 +96,10 @@ function update(dt) {
             if (i === j) continue;
             var dx = bodyX[i] - bodyX[j];
             var dy = bodyY[i] - bodyY[j];
-            var distSq = dx * dx + dy * dy + 1e-6;
+            var distSq = dx * dx + dy * dy + softening;
             var dist = Math.sqrt(distSq);
             var f = bodyRepels[i] / distSq;
+            if (f > maxForce) f = maxForce;
             fx[i] += f * (dx / dist);
             fy[i] += f * (dy / dist);
         }
@@ -105,14 +118,9 @@ function update(dt) {
         }
     }
 
-    // Output positions as polar (angle°, distance)
-    var out = [];
     for (var i = 0; i < N; i++) {
-        var angle = Math.atan2(bodyY[i], bodyX[i]) * (180 / Math.PI);
-        if (angle < 0) angle += 360; // ensure 0–360
-        var radius = Math.sqrt(bodyX[i] * bodyX[i] + bodyY[i] * bodyY[i]);
-        out.push(angle);
-        out.push(radius);
+        outlet(0, "xyz", i + 1, bodyX[i], bodyY[i], 0);
     }
-    outlet(0, out);
+    // outlet(0, out);
+
 }
