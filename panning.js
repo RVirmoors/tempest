@@ -10,6 +10,8 @@ var bodyRepels = new Array(N);
 
 var bodyX = new Array(N);
 var bodyY = new Array(N);
+var velX = new Array(N);
+var velY = new Array(N);
 
 var sinkX = new Array(N);
 var sinkY = new Array(N);
@@ -28,11 +30,13 @@ function init_sinks() {
 function init_bodies() {
     for (var i = 0; i < N; i++) {
         var r = 1.0;
-        var theta = i * 60 + 30;
+        var theta = i * Math.PI / 3;
         bodyX[i] = r * Math.cos(theta);
         bodyY[i] = r * Math.sin(theta);
+        velX[i] = 0;
+        velY[i] = 0;
         sinkStrengths[i] = 0.05;
-        bodyRepels[i] = 0.1;
+        bodyRepels[i] = 0.2;
     }
 }
 
@@ -70,6 +74,7 @@ function update(dt) {
     var fy = new Array(N);
     var softening = 0.01;   // prevents infinite force
     var maxForce  = 8.0;    // cap per interaction
+    var damping = 0.95;
 
     for (var i = 0; i < N; i++) {
         fx[i] = 0;
@@ -107,14 +112,29 @@ function update(dt) {
 
     // Euler integration
     for (var i = 0; i < N; i++) {
-        bodyX[i] += fx[i] * dt;
-        bodyY[i] += fy[i] * dt;
+        // acceleration = force
+        velX[i] += fx[i] * dt;
+        velY[i] += fy[i] * dt;
 
-        // Clamp to boundary circle
+        // apply damping
+        velX[i] *= damping;
+        velY[i] *= damping;
+
+        // update position
+        bodyX[i] += velX[i] * dt;
+        bodyY[i] += velY[i] * dt;
+
+        // boundary clamp
         var r = Math.sqrt(bodyX[i] * bodyX[i] + bodyY[i] * bodyY[i]);
         if (r > boundaryRadius) {
+            // scale position to boundary
             bodyX[i] *= boundaryRadius / r;
             bodyY[i] *= boundaryRadius / r;
+
+            // simple reflect of velocity
+            var scale = boundaryRadius / r;
+            velX[i] *= scale;
+            velY[i] *= scale;
         }
     }
 
