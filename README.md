@@ -4,4 +4,18 @@
 
 IMU bracelets sending `/accel` to 8888 and 8889
 
-packages: ICST Ambisonics, SoMax, FluCoMa
+packages: ICST Ambisonics, FluCoMa, [SoMax](https://forum.ircam.fr/projects/detail/somax-2/), [SP-Tools](https://github.com/rconstanzo/SP-tools)
+
+## how it works
+
+### Section 1
+
+SoMax Players are in "installation" mode, they influence each other continuously.
+
+### Section 2
+
+SoMax Players switch to "reactive" mode, only generating in response to human inputs.
+
+### Section 3
+
+SoMax back to installation mode, this time in a more chaotic / random configuration.
