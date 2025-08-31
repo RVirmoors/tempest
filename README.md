@@ -4,7 +4,7 @@
 
 IMU bracelets sending `/accel` OR oscHook on Android, to ports 8888 and 8889
 
-packages: ICST Ambisonics, FluCoMa, ml.star, [SoMax](https://forum.ircam.fr/projects/detail/somax-2/), [SP-Tools](https://github.com/rconstanzo/SP-tools)
+packages: MuBu, ICST Ambisonics, FluCoMa, ml.star, [SoMax](https://forum.ircam.fr/projects/detail/somax-2/), [SP-Tools](https://github.com/rconstanzo/SP-tools)
 
 ## how it works
 
