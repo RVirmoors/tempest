@@ -37,7 +37,7 @@ main_gain 0;
 3-load_corp 03-Acordaj-Viola.pickle;
 4-load_corp 03-Acordaj-Violoncel.pickle;
 5-load_corp 03-Acordaj-Oboi.pickle;
-6-load_corp 03-Acordaj-Pian.pickle;
+6-load_corp new;
 ------------------------ 4;
 0 4 mode 1 1 1 1 1 1;
 influence 1 1 1 1 1 1;
