@@ -69,6 +69,15 @@ function reset_bodies() {
     init_bodies();
 }
 
+function add_force(fx, fy) {
+    fx = fx / 10.;
+    fy = fy / 10.;
+    for (var idx = 0; idx < N; idx++) {
+        velX[idx] += fx;
+        velY[idx] += fy;
+    }
+}
+
 function update(dt) {
     var fx = new Array(N);
     var fy = new Array(N);
