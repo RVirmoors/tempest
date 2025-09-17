@@ -40,6 +40,18 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-38",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 246.5, 94.666656555908105, 89.0, 22.0 ],
+					"text" : "loadmess cut 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"color" : [ 0.803921568627451, 0.870588235294118, 0.003921568627451, 1.0 ],
 					"id" : "obj-36",
 					"maxclass" : "newobj",
@@ -1148,6 +1160,13 @@
 					"destination" : [ "obj-60", 0 ],
 					"order" : 3,
 					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"source" : [ "obj-38", 0 ]
 				}
 
 			}
