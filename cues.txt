@@ -58,6 +58,7 @@ conduct_on 1;
 probability 0.6 0.6 0.6 0.6 0.6 0.6;
 1-load_corp 00-Zgomote-Clarinet.pickle;
 4-load_corp 00-Zgomote-Violoncel.pickle;
+drums-solo 1;
 4000 1-recordCorpus 1;
 4-recordCorpus 1;
 ------------------------ 6;
