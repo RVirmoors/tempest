@@ -70,8 +70,8 @@ function reset_bodies() {
 }
 
 function add_force(fx, fy) {
-    fx = fx / 1.2;
-    fy = fy / 1.2;
+    fx = fx * 1.2;
+    fy = fy * 1.2;
     for (var idx = 0; idx < N; idx++) {
         velX[idx] += fx;
         velY[idx] += fy;
