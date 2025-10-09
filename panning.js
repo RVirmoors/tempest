@@ -4,7 +4,7 @@
 inlets = 1;
 outlets = 1;
 
-var N = 6;
+var N = 4;
 var sinkStrengths = new Array(N);
 var bodyRepels = new Array(N);
 

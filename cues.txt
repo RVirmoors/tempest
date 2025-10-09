@@ -54,7 +54,7 @@ valhalla Mix 0.1
 6-recordCorpus 1;
 ------------------------ 5;
 0 5 mode 2 2 2 2 2 2;
-influence 2 2 2 2 2 2;
+influence 1 1 1 1 1 1;
 conduct_on 1;
 main_gain -30;
 probability 0.6 0.6 0.6 0.6 0.6 0.6;
