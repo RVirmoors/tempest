@@ -30,7 +30,7 @@ function init_sinks() {
 function init_bodies() {
     for (var i = 0; i < N; i++) {
         var r = 1.0;
-        var theta = i * Math.PI / 3;
+        var theta = (Math.PI * 2 * i) / N;
         bodyX[i] = r * Math.cos(theta);
         bodyY[i] = r * Math.sin(theta);
         velX[i] = 0;
